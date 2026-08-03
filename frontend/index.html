@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>To-Do List</h1>
+        <p>Организирай своите задачи</p>
+    </header>
+
+    <main>
+
+        <section class="add-task">
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Въведи нова задача">
+
+            <button id="addTaskBtn">
+                Добави
+            </button>
+        </section>
+
+        <section class="tasks">
+
+            <h2>Моите задачи</h2>
+
+            <ul id="taskList">
+
+                <!-- Примерна задача -->
+                <li>
+                    <span>Да завърша проекта</span>
+
+                    <div>
+                        <button>✔</button>
+                        <button>✏</button>
+                        <button>🗑</button>
+                    </div>
+                </li>
+
+            </ul>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
