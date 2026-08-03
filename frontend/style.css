@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4f6f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+main {
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #666;
+}
+
+.add-task {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+#taskInput {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+#taskInput:focus {
+    border-color: #2563eb;
+}
+
+#addTaskBtn {
+    padding: 12px 20px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#addTaskBtn:hover {
+    background: #1d4ed8;
+}
+
+.tasks h2 {
+    margin-bottom: 15px;
+}
+
+#taskList {
+    list-style: none;
+}
+
+#taskList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 12px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border-left: 5px solid #2563eb;
+}
+
+#taskList li span {
+    font-size: 16px;
+}
+
+#taskList li div {
+    display: flex;
+    gap: 8px;
+}
+
+#taskList li button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+#taskList li button:nth-child(1) {
+    background: #22c55e;
+    color: white;
+}
+
+#taskList li button:nth-child(2) {
+    background: #f59e0b;
+    color: white;
+}
+
+#taskList li button:nth-child(3) {
+    background: #ef4444;
+    color: white;
+}
+
+#taskList li button:hover {
+    transform: scale(1.08);
+}
+
+@media (max-width: 600px) {
+    main {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .add-task {
+        flex-direction: column;
+    }
+
+    #addTaskBtn {
+        width: 100%;
+    }
+
+    #taskList li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    #taskList li div {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
