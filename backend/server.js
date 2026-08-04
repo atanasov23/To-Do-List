@@ -6,6 +6,7 @@ const path = require("path");
 const app = express();
 const PORT = 3000;
 
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -51,6 +52,36 @@ app.post("/tasks", (req, res) => {
 
     res.status(201).json(newTask);
 });
+
+app.put("/tasks/:id", (req, res) => {
+
+    const tasks = loadTasks();
+
+    const task = tasks.find(t => t.id == req.params.id);
+
+    if (!task) {
+        return res.status(404).json({ message: "Task not found" });
+    }
+
+    task.text = req.body.text;
+    task.completed = req.body.completed;
+
+    saveTasks(tasks);
+
+    res.json(task);
+});
+
+app.delete("/tasks/:id", (req, res) => {
+
+    const tasks = loadTasks();
+
+    const filteredTasks = tasks.filter(t => t.id != req.params.id);
+
+    saveTasks(filteredTasks);
+
+    res.json({ message: "Task deleted" });
+});
+
 // Стартиране на сървъра
 app.listen(PORT, () => {
     console.log(`Сървърът работи на http://localhost:${PORT}`);
