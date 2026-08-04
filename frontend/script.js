@@ -23,6 +23,18 @@ function addTask() {
         return;
     }
 
+        if (text.length < 3) {
+        alert("Задачата трябва да съдържа поне 3 символа.");
+        taskInput.focus();
+        return;
+    }
+
+    if (text.length > 100) {
+        alert("Задачата не може да бъде по-дълга от 100 символа.");
+        taskInput.focus();
+        return;
+    }
+
     createTask(text);
 
     taskInput.value = "";

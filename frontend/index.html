@@ -20,11 +20,16 @@
             <input
                 type="text"
                 id="taskInput"
-                placeholder="Въведи нова задача">
+                placeholder="Въведи нова задача"
+                required
+                minlength="3"
+                maxlength="100"
+                autocomplete="off">
 
             <button id="addTaskBtn">
                 Добави
             </button>
+            
         </section>
 
         <section class="tasks">
