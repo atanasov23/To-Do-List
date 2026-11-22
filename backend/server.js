@@ -37,49 +37,92 @@ app.get("/tasks", (req, res) => {
 
 // Добавяне на задача
 app.post("/tasks", (req, res) => {
+    try {
+        const { text } = req.body;
 
-    const tasks = loadTasks();
+        if (!text || text.trim().length < 3) {
+            return res.status(400).json({
+                message: "Задачата трябва да съдържа поне 4 символа, за да добавите."
+            });
+        }
 
-    const newTask = {
-        id: Date.now(),
-        text: req.body.text,
-        completed: false
-    };
+        const tasks = loadTasks();
 
-    tasks.push(newTask);
+        const newTask = {
+            id: Date.now(),
+            text: text.trim(),
+            completed: false
+        };
 
-    saveTasks(tasks);
+        tasks.push(newTask);
+        saveTasks(tasks);
 
-    res.status(201).json(newTask);
+        res.status(201).json(newTask);
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Възникна грешка при добавяне на задачата."
+        });
+    }
 });
 
 app.put("/tasks/:id", (req, res) => {
+    try {
+        const tasks = loadTasks();
 
-    const tasks = loadTasks();
+        const task = tasks.find(t => t.id == req.params.id);
 
-    const task = tasks.find(t => t.id == req.params.id);
+        if (!task) {
+            return res.status(404).json({
+                message: "Задачата не е намерена."
+            });
+        }
 
-    if (!task) {
-        return res.status(404).json({ message: "Task not found" });
+        if (!req.body.text || req.body.text.trim().length <= 3) {
+            return res.status(400).json({
+                message: "Невалиден текст на задачата. Трябва да съдържа поне 4 символа."
+            });
+        }
+
+        task.text = req.body.text.trim();
+        task.completed = req.body.completed;
+
+        saveTasks(tasks);
+
+        res.json(task);
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Възникна грешка при редактиране."
+        });
     }
-
-    task.text = req.body.text;
-    task.completed = req.body.completed;
-
-    saveTasks(tasks);
-
-    res.json(task);
 });
 
 app.delete("/tasks/:id", (req, res) => {
+    try {
+        const tasks = loadTasks();
 
-    const tasks = loadTasks();
+        const taskExists = tasks.some(t => t.id == req.params.id);
 
-    const filteredTasks = tasks.filter(t => t.id != req.params.id);
+        if (!taskExists) {
+            return res.status(404).json({
+                message: "Задачата не е намерена."
+            });
+        }
 
-    saveTasks(filteredTasks);
+        const updatedTasks = tasks.filter(t => t.id != req.params.id);
 
-    res.json({ message: "Task deleted" });
+        saveTasks(updatedTasks);
+
+        res.json({
+            message: "Задачата беше изтрита."
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Възникна грешка при изтриване."
+        });
+    }
 });
 
 // Стартиране на сървъра
